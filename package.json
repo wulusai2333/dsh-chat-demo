@@ -1,6 +1,6 @@
 {
   "name": "dsh-chat-demo",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "description": "把开源项目 deepseek-ai/chat-demo（MIT）作为 DSH 插件接入：同源全屏面板 + 宿主注入 Key + 历史对话导入。",
   "keywords": [

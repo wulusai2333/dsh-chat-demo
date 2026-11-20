@@ -284,27 +284,18 @@ test('侧栏图标与 main 面板使用同一个 id/key（否则点图标打不�
   }
 })
 
-test('标签跟随语言切换（DSH 的语言 id 是 zh / en）', () => {
-  const zh = load({ locale: 'zh' })
-  let zhLabel
-  try {
-    const env = makeCtx({ locale: 'zh' })
-    zh.module.apply(env.ctx)
-    zhLabel = env.registrations.find((i) => i.registration.name === 'sidebar.panellist').registration.label()
-  } finally {
-    zh.restore()
-  }
-
-  for (const locale of ['en', 'en-US', 'en-GB']) {
-    const en = load({ locale })
+test('侧栏标签固定为 chat-demo（中英文一致）', () => {
+  for (const locale of ['zh', 'en', 'en-US', 'en-GB']) {
+    const loaded = load({ locale })
     try {
       const env = makeCtx({ locale })
-      en.module.apply(env.ctx)
-      const enLabel = env.registrations.find((i) => i.registration.name === 'sidebar.panellist').registration.label()
-      assert.equal(enLabel, 'Chat history', `语言 ${locale} 应显示英文标签`)
-      assert.equal(enLabel === zhLabel, false, '中英文标签不应相同')
+      loaded.module.apply(env.ctx)
+      const label = env.registrations.find((i) => i.registration.name === 'sidebar.panellist').registration.label()
+      // 入口名用上游项目名，不随语言变化：换成「历史对话 / Chat history」会让
+      // 首次安装的人以为这是个历史管理页，而不是 chat-demo 本体。
+      assert.equal(label, 'chat-demo', `语言 ${locale} 的侧栏标签应为 chat-demo`)
     } finally {
-      en.restore()
+      loaded.restore()
     }
   }
 })

@@ -43,7 +43,7 @@ Windows 上写成 `D:\path\to\dsh-chat-demo`。
 装完会看到类似输出：
 
 ```
-+ dsh-chat-demo 0.1.2
++ dsh-chat-demo 0.1.3
 ```
 
 ### 1c. 装进桌面端（DSH Desktop）
@@ -88,7 +88,7 @@ dsh web --profile web
 
 ## 4. 打开入口
 
-左侧栏底部出现「历史对话」图标（对话气泡）。点开是全屏面板。
+左侧栏出现 `chat-demo` 入口（对话气泡图标，展开侧栏时同时显示文字）。点开是全屏面板。
 
 - 第一次打开时，宿主半边会探一次上游 `/models`。如果宿主没有可用 Key，面板顶部会出现一条
   **红色提示条**，里面可以直接填一次 Key（只保存在宿主进程内存，重启即失效，不落盘）。
@@ -145,7 +145,7 @@ dsh plugin --profile desktop remove dsh-chat-demo
 
 ## 7. 装完自查
 
-- [ ] 侧栏出现图标，点开是全屏面板。
+- [ ] 侧栏出现 `chat-demo` 入口（对话气泡图标），点开是全屏面板。
 - [ ] **回得去**（三条都要过，这是 0.1.1 修的重大问题）：
       - 点头部最左的「← 返回」→ 回到当前对话；
       - 把焦点点进面板里的聊天输入框，再按 `Esc` → 同样回到对话；
@@ -154,7 +154,7 @@ dsh plugin --profile desktop remove dsh-chat-demo
 - [ ] 桌面端（Windows）：**标题栏那一行不被面板盖住，窗口能拖**；面板头部的按钮**点得动**
       （不会被当成拖动区把窗口拖走）。
 - [ ] 切到深色主题：面板背景、文字跟着变，不露白底。
-- [ ] 切到 English：侧栏标签变成 `Chat history`，头部按钮变成 `← Back`。
+- [ ] 切到 English：侧栏入口仍是 `chat-demo`，头部按钮变成 `← Back`。
 - [ ] 打开 DevTools → Network，搜 `sk-`：**一条都不该有**（Key 只在宿主进程里）。
 - [ ] 发一条消息，能看到流式逐字到达；按 `Esc` 中断后 Network 里那条请求立即变红/取消。
 - [ ] 连续开关面板 10 次，Memory 面板里 iframe 数量不增长（关闭是 `display:none`，不是卸载）。
@@ -171,7 +171,7 @@ dsh plugin --profile desktop remove dsh-chat-demo
 
 | 现象 | 原因 | 处理 |
 | --- | --- | --- |
-| 桌面端侧栏没有「历史对话」图标 | 新 bundle 的浏览器行没进已加载的 boot graph（热应用只重排了宿主半边） | 先 `Ctrl+R`；仍无则完全退出并重开桌面端 |
+| 桌面端侧栏没有 `chat-demo` 入口 | 新 bundle 的浏览器行没进已加载的 boot graph（热应用只重排了宿主半边）；或该入口在「更多」里被取消固定 | 先 `Ctrl+R`；仍无则完全退出并重开桌面端；再从「更多」把它固定回侧栏 |
 | 更新/崩溃恢复后图标消失，插件里其它 bundle 也一起没了 | 桌面端会把这些 profile 重置回 `base + web-app` | 插件管理里重新启用，不必重装 |
 | 装完 pnpm 顺带升级了别的插件 | `dsh plugin add` 就是一次 pnpm 安装，会按锁文件重解 | 属正常行为；要固定版本就把 `dependencies` 改成精确版本 |
 | 面板里发消息报 503 `host-key-missing`，但 `~/.dsh/.credentials.yaml` 里明明有 `DEEPSEEK_API_KEY` | 0.1.2 已修：旧代码在 `apply()` 里缓存了 `ctx.get('credentials')`，而 `ctx.get` 默认 strict —— 提供方 fiber 未 ACTIVE 时返回 `undefined`，被永久记住 | 无需处理；升级后面板顶部的 Key 提示条应消失（见 README 第 7 条） |

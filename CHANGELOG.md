@@ -14,6 +14,14 @@
 - 补测 L2 浏览器扩展的采集端点（当前 `ENDPOINTS` 刻意留空，加载即报错，见
   [docs/sync-feasibility.md](docs/sync-feasibility.md) §8）。
 
+## [0.1.3] — 2026-11-20
+
+### 变更
+
+- 侧栏入口与面板头部标题从「历史对话 / Chat history」改名为 **`chat-demo`**，
+  中英文界面一致。新用户不会再把它当成一个纯历史管理页。
+- README 新增「入口在哪」：侧栏位置、展开/收起两种形态、找不到时的三步排查。
+
 ## [0.1.2] — 2026-11-18
 
 ### 修复
@@ -70,7 +78,8 @@
 - 导入语义为**并集合并**而非整体替换：复用上游暂存通道，`commitStaging()` 仍是唯一写入点。
 - 测试台：假宿主 + 假上游 + 真实 `node:http`，46 个用例，零第三方依赖。
 
-[Unreleased]: https://github.com/wulusai2333/dsh-chat-demo/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/wulusai2333/dsh-chat-demo/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/wulusai2333/dsh-chat-demo/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/wulusai2333/dsh-chat-demo/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/wulusai2333/dsh-chat-demo/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/wulusai2333/dsh-chat-demo/releases/tag/v0.1.0

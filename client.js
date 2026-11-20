@@ -25,6 +25,13 @@ window.__ModuleLoader__.load({
 
     /** 侧栏 id 与 main 面板 key 必须是同一个值：侧栏按 id 派发到同名面板。 */
     var PANEL_ID = 'dsh-chat-demo'
+    /**
+     * 侧栏与面板头部的展示名。固定为上游项目名，不随语言切换：
+     * 用「历史对话」会让首次安装的人以为这是一个历史管理页，而不是 chat-demo 本体。
+     * 只有展示名用这个常量；PANEL_ID 不能改 —— 它同时是 client.js 的路由、main 面板 key
+     * 与导入消息的命名空间。
+     */
+    var PANEL_LABEL = 'chat-demo'
     var BASE = '/plugins/dsh-chat-demo'
     var WEB_URL = BASE + '/web/'
 
@@ -179,7 +186,7 @@ window.__ModuleLoader__.load({
         backButton.title = t('返回工作页面（Esc）', 'Back to the workspace (Esc)')
 
         var title = document.createElement('strong')
-        title.textContent = t('历史对话', 'Chat history')
+        title.textContent = PANEL_LABEL
         style(title, { marginRight: 'auto', font: '600 13px/1.4 system-ui, sans-serif' })
 
         var importButton = button(t('导入历史', 'Import history'), function () {
@@ -763,9 +770,10 @@ window.__ModuleLoader__.load({
               name: 'sidebar.panellist',
               id: PANEL_ID,
               order: 30,
-              // thunk：每次投影都重读，语言切换无需重新注册。
+              // thunk：每次投影都重读。展示名不随语言变化，但保持 thunk 形态，
+              // 语言切换时宿主重新投影的路径不变。
               label: function () {
-                return isEnglish(ctx) ? 'Chat history' : '历史对话'
+                return PANEL_LABEL
               },
             },
             PanelIcon

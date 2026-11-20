@@ -54,7 +54,7 @@ body:
       description: 从干净状态开始，一步步写。可复现是最重要的信息。
       placeholder: |
         1. 装好插件并重启 profile
-        2. 点侧栏「历史对话」
+        2. 点侧栏「chat-demo」
         3. 按 Esc
         4. 现象：……
     validations:
