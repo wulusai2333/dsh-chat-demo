@@ -1,0 +1,26 @@
+# 统一入库为 LF。scripts/prepare-web.mjs 的补丁锚点是用 \n 写的多行字符串，
+# 任何一环把 CRLF 带进源码树，锚点匹配就会失败，而报错看起来像「上游改了实现」。
+* text=auto eol=lf
+
+# 构建产物按字节原样存：里面是压缩过的 JS、字体和第三方许可文本，不该让 git
+# 做换行转换。web/ 与上游 dist/ 是**逐字节一致**的（可用 SHA256 比对），
+# 一旦被 CRLF 归一化，就不再是「原样分发上游产物」，第三方的 LICENSE 也会被改写。
+web/** -text
+# 唯一例外：index.html 是 LF 且需要 diff 可读，显式声明为文本。
+web/index.html text eol=lf
+
+# 二进制资源
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.zip binary
+
+# lockfile 在 diff 里折叠，避免它淹没真实的改动
+pnpm-lock.yaml linguist-generated

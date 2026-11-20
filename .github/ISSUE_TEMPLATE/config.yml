@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安装与故障排查
+    url: https://github.com/wulusai2333/dsh-chat-demo/blob/main/docs/install.md
+    about: 安装步骤、装完自查清单、已知不兼容与限制。多数安装问题在这里已有答案。
+  - name: 历史同步的可行性论证
+    url: https://github.com/wulusai2333/dsh-chat-demo/blob/main/docs/sync-feasibility.md
+    about: 三档同步方案（官方导出 / 手工粘贴 / 浏览器扩展）各自能做什么、卡在哪、哪些还没实测。
+  - name: 安全漏洞
+    url: https://github.com/wulusai2333/dsh-chat-demo/blob/main/SECURITY.md
+    about: 请勿在公开 issue 里讨论未修复的漏洞，按这里的渠道私密报告。

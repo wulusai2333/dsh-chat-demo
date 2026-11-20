@@ -1,0 +1,53 @@
+name: CI
+
+# 只跑测试，**不跑构建**。
+#
+# web/ 是入库的构建产物，测试直接读它；而重建 web/ 需要 clone 上游 236 MB
+# （其中 230 MB 是 node_modules）并跑一次完整的 rspack 构建 —— 放在每次 push 上
+# 既慢又脆，且构建失败通常不是这个 PR 的问题。要验构建就本地跑
+# `node scripts/prepare-web.mjs`。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 与 package.json 的 engines 对齐：^22.19.0 || >=24.0.0
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # 没有依赖要装：插件本体与测试只使用 Node 内置模块。
+      - name: Run tests
+        run: node --test tests/*.test.mjs
+
+      # 产物是入库的，所以这里能直接验证它没被改坏。
+      # 这两条对应 scripts/prepare-web.mjs 的「自检 3」与「自检 1」，
+      # 保证有人手工改 web/ 时会被发现。
+      - name: Assert web/ asset prefix is absolute
+        run: |
+          grep -q 'src="/plugins/dsh-chat-demo/web/static/js/' web/index.html \
+            || { echo 'web/index.html 的资源前缀不是绝对路径，SPA 回退会白屏'; exit 1; }
+
+      - name: Assert no API key leaked into the build output
+        run: |
+          if grep -rIE '\bsk-[A-Za-z0-9]{16,}' web/ ; then
+            echo '产物中出现疑似 API Key 的字符串'; exit 1
+          fi
+          echo '产物中未发现 sk- 形式的密钥'

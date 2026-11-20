@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+  <title>chat-demo</title>
+  <path d="M4 5.5h16v11H9.5L4 20V5.5z" />
+  <path d="M8.5 9.5h7M8.5 12.5h4.5" />
+</svg>

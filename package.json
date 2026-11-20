@@ -1,0 +1,66 @@
+{
+  "name": "dsh-chat-demo",
+  "version": "0.1.2",
+  "private": true,
+  "description": "把开源项目 deepseek-ai/chat-demo（MIT）作为 DSH 插件接入：同源全屏面板 + 宿主注入 Key + 历史对话导入。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek",
+    "chat-demo",
+    "plugin"
+  ],
+  "homepage": "https://github.com/wulusai2333/dsh-chat-demo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wulusai2333/dsh-chat-demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wulusai2333/dsh-chat-demo/issues"
+  },
+  "type": "module",
+  "license": "MIT",
+  "author": "dsh-chat-demo contributors",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "web",
+    "sync",
+    "extension",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "docs"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "scripts": {
+    "build": "node scripts/prepare-web.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "smoke": "node tests/smoke.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    },
+    "compatibility": {
+      "dshReleases": {
+        "0.2.1-rc.5": "compatible",
+        "0.2.2-rc.5": "compatible"
+      }
+    }
+  }
+}

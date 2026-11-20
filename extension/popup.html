@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>推送到 DSH</title>
+    <style>
+      body { font: 13px/1.5 system-ui, sans-serif; width: 320px; padding: 14px; margin: 0; }
+      h1 { font-size: 13px; margin: 0 0 10px; }
+      label { display: block; margin: 10px 0 4px; font-size: 12px; color: #555; }
+      .hint { margin: 4px 0 0; font-size: 11px; line-height: 1.4; color: #777; }
+      input { width: 100%; box-sizing: border-box; padding: 6px 8px; font: 12px/1 ui-monospace, monospace; }
+      button { margin-top: 12px; width: 100%; padding: 8px; font-size: 13px; cursor: pointer; }
+      .warn { margin-top: 12px; padding: 8px; background: #fff4d6; border: 1px solid #e0c078; border-radius: 6px; font-size: 11px; line-height: 1.5; }
+      #log { margin-top: 10px; font: 11px/1.5 ui-monospace, monospace; white-space: pre-wrap; color: #333; }
+    </style>
+  </head>
+  <body>
+    <h1>推送到本机 DSH</h1>
+
+    <label for="endpoint">插件地址</label>
+    <input id="endpoint" placeholder="http://127.0.0.1:端口" spellcheck="false" />
+    <p class="hint">端口见 DSH 窗口的地址栏，或面板里「粘贴导入」旁提示的地址。</p>
+
+    <label for="token">一次性 token（从面板的「粘贴导入」旁复制）</label>
+    <input id="token" placeholder="粘贴 token" spellcheck="false" />
+
+    <button id="run" type="button">开始推送</button>
+    <div id="log"></div>
+
+    <p class="warn">
+      <strong>未验证。</strong> 本扩展只交付源码骨架：chat.deepseek.com 的会话接口路径与反爬
+      机制（PoW 等）尚未实测，见 <code>docs/sync-feasibility.md</code> §2–§3。
+      它不会自动点击「导出所有历史对话」，也不会绕过任何验证码或风控；
+      遇到验证请求会直接停止并如实报错。如果推送不通，请改用官方导出 ZIP 导入。
+    </p>
+
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>

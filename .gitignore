@@ -1,0 +1,41 @@
+# ── vendored 上游副本：绝不入库 ────────────────────────────────────────────
+#
+# 由 `node scripts/prepare-web.mjs` 按 PINNED_COMMIT 克隆到 web-src/upstream/ 并重建。
+# 不入库的两个理由：
+#   1. 它自带 .git —— 直接入库会变成一个**没有 .gitmodules 的 gitlink**，
+#      别人 clone 下来只会得到一个空目录，且 236 MB 里有 230 MB 是 node_modules。
+#   2. 它的内容本来就该由脚本重建；我们对上游的所有改动都在 web-src/inject/
+#      与 prepare-web.mjs 的补丁表里，可以完整重放。
+#
+# 注意：web/ 是**构建产物，要入库**（装完即用，使用者不必本地构建）。
+web-src/upstream/
+
+# ── 依赖与构建中间产物 ────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+.pnpm-store/
+.cache/
+*.log
+
+# ── 本地环境与编辑器 ──────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# ── 个人数据：任何情况下都不入库 ──────────────────────────────────────────
+#
+# 官方导出的会话归档（含你自己的全部聊天记录）、截图、抓包。
+# 这类文件一旦进过 git 历史，删掉文件也删不掉历史 —— 只能 rewrite 整棵历史。
+deepseek_data*.zip
+deepseek_data*.json
+*.zip
+screenshots/
+captures/
+recordings/
+
+# ── 系统 ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

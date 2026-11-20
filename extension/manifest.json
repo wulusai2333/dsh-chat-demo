@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "dsh-chat-demo 历史导出助手（未验证）",
+  "version": "0.1.0",
+  "description": "把 chat.deepseek.com 的历史会话交给本机 DSH 的 dsh-chat-demo 插件。仅访问你自己的账号数据，串行请求、频率受限、不绕验证码。",
+  "host_permissions": [
+    "https://chat.deepseek.com/*",
+    "http://127.0.0.1/*"
+  ],
+  "permissions": ["storage"],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "把历史推送到 DSH",
+    "default_popup": "popup.html"
+  },
+  "minimum_chrome_version": "120"
+}
